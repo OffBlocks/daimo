@@ -79,6 +79,7 @@
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
+    "http": "^0.0.1-security",
     "jest": "^29.5.0",
     "jest-expo": "^49.0.0",
     "react": "18.2.0",
@@ -95,10 +96,12 @@
     "react-native-shake": "^5.5.2",
     "react-native-svg": "13.9.0",
     "react-native-url-polyfill": "^2.0.0",
+    "react-query": "^3.39.3",
     "stream-browserify": "^3.0.0",
     "text-encoding-polyfill": "^0.6.7",
     "ts-unused-exports": "^9.0.4",
     "typescript": "5.2.2",
+    "url": "^0.11.3",
     "viem": "^1.19.15"
   },
   "eslintConfig": {

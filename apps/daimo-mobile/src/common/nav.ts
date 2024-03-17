@@ -7,6 +7,7 @@ import {
   DaimoLinkRequest,
   DaimoLinkRequestV2,
   DaimoLinkTag,
+  DaimoPaymentLink,
   DisplayOpEvent,
   EAccount,
   getEAccountStr,
@@ -27,6 +28,7 @@ import {
   markInitialDeepLinkHandled,
 } from "../logic/deeplink";
 import { fetchInviteLinkStatus } from "../logic/linkStatus";
+import usePayment from "../logic/payment";
 
 export type ParamListOnboarding = {
   Intro: undefined;
@@ -50,6 +52,7 @@ export type ParamListHome = {
   HistoryOp: { op: DisplayOpEvent };
   Receive: { autoFocus: boolean };
   Note: { link: DaimoLinkNote | DaimoLinkNoteV2 };
+  Payment: { link: DaimoPaymentLink };
 };
 
 type ParamListError = {
@@ -244,6 +247,10 @@ async function goTo(nav: MainNav, link: DaimoLink) {
     }
     case "invite": {
       nav.navigate("HomeTab", { screen: "Account", params: { link } });
+      break;
+    }
+    case "payment": {
+      nav.navigate("HomeTab", { screen: "Payment", params: { link } });
       break;
     }
     default:

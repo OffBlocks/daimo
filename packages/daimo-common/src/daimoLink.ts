@@ -22,7 +22,8 @@ export type DaimoLink =
   | DaimoLinkNoteV2
   | DaimoLinkSettings
   | DaimoLinkInviteCode
-  | DaimoLinkTag;
+  | DaimoLinkTag
+  | DaimoPaymentLink;
 
 export function stripSeedFromNoteLink<V extends DaimoLink>(link: V): V {
   if (link.type === "notev2") {
@@ -96,6 +97,11 @@ export type DaimoLinkTag = {
   id: string;
 };
 
+export type DaimoPaymentLink = {
+  type: "payment";
+  id: string;
+};
+
 // Returns a shareable https://daimo.com/... deep link.
 export function formatDaimoLink(link: DaimoLink) {
   return formatDaimoLinkInner(link, daimoLinkBaseV2);
@@ -156,6 +162,9 @@ function formatDaimoLinkInner(link: DaimoLink, linkBase: string): string {
     }
     case "tag": {
       return `${linkBase}/t/${link.id}`;
+    }
+    case "payment": {
+      return `${linkBase}/payment/${link.id}`;
     }
   }
 }
@@ -289,6 +298,11 @@ function parseDaimoLinkInner(link: string): DaimoLink | null {
       if (parts.length !== 2) return null;
       const id = parts[1];
       return { type: "tag", id };
+    }
+    case "payment": {
+      if (parts.length !== 2) return null;
+      const id = parts[1];
+      return { type: "payment", id };
     }
     default:
       return null;

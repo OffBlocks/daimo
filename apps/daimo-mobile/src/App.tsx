@@ -11,6 +11,7 @@ import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RNShake from "react-native-shake";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { Dispatcher, DispatcherContext } from "./action/dispatch";
 import { useAccount } from "./logic/accountManager";
@@ -29,6 +30,8 @@ export default function App() {
   const [account] = useAccount();
   const onb = account?.isOnboarded ? "onboarded" : "not onboarded";
   console.log(`[APP] rendering ${account?.name || "no account"}, ${onb}`);
+
+  const queryClient = new QueryClient();
 
   // Display notifications, listen for push notifications
   useInitNotifications();
@@ -51,7 +54,9 @@ export default function App() {
     <RpcProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <NavigationContainer theme={theme}>
-          <AppBody />
+          <QueryClientProvider client={queryClient}>
+            <AppBody />
+          </QueryClientProvider>
         </NavigationContainer>
       </GestureHandlerRootView>
     </RpcProvider>

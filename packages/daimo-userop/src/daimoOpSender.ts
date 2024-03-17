@@ -184,6 +184,35 @@ export class DaimoOpSender {
     return this.sendUserOp(op);
   }
 
+  /** Sends an ERC20 approval. Returns userOpHash. */
+  public async erc20approve(
+    spender: Address,
+    amount: `${number}`, // in the native unit of the token
+    opMetadata: DaimoOpMetadata
+  ) {
+    const { tokenAddress, tokenDecimals } = this.opConfig;
+
+    const parsedAmount = parseUnits(amount, tokenDecimals);
+    console.log(`[OP] approve ${parsedAmount} ${tokenAddress} to ${spender}`);
+
+    const op = this.opBuilder.executeBatch(
+      [
+        {
+          dest: tokenAddress,
+          value: 0n,
+          data: encodeFunctionData({
+            abi: Contracts.erc20ABI,
+            functionName: "approve",
+            args: [spender, parsedAmount],
+          }),
+        },
+      ],
+      opMetadata
+    );
+
+    return this.sendUserOp(op);
+  }
+
   /** Creates an ephemeral note V2 with given value. Returns userOpHash. */
   public async createEphemeralNote(
     ephemeralOwner: Hex,

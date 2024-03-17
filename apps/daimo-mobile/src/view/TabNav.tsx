@@ -38,6 +38,7 @@ import { OnboardingIntroScreen as OnbIntroScreen } from "./screen/onboarding/Onb
 import { OnboardingPickNameScreen as OnbPickNameScreen } from "./screen/onboarding/OnboardingPickNameScreen";
 import { OnboardingSetupKeyPage as OnbSetupKeyPage } from "./screen/onboarding/OnboardingSetupKeyPage";
 import { OnboardingUseExistingScreen as OnbUseExistingScreen } from "./screen/onboarding/OnboardingUseExistingScreen";
+import { PaymentScreen } from "./screen/payment/PaymentScreen";
 import DepositScreen from "./screen/receive/DepositScreen";
 import { ReceiveScreenV2 } from "./screen/receive/ReceiveScreenV2";
 import { SendNavScreen } from "./screen/send/SendNavScreen";
@@ -325,6 +326,7 @@ function HomeTab() {
         <HomeStack.Screen name="Account" component={AccountScreen} />
         <HomeStack.Screen name="Note" component={NoteScreen} />
         <HomeStack.Screen name="Receive" component={ReceiveScreenV2} />
+        <HomeStack.Screen name="Payment" component={PaymentScreen} />
       </HomeStack.Group>
     </HomeStack.Navigator>
   );
